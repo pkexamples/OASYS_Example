@@ -1,0 +1,530 @@
+<?xml version="1.0" ?>
+<xs:schema id="OasysCable" targetNamespace="http://pkinetics.com/oasys.net" elementFormDefault="qualified"
+        xmlns="http://pkinetics.com/oasys.net" xmlns:oasys="http://pkinetics.com/oasys.net"
+        xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+   <xs:include schemaLocation="OTDR.xsd" />
+   <xs:simpleType name="DirectionalityAspectType">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Unidirectional" />
+         <xs:enumeration value="Bidirectional" />
+      </xs:restriction>
+   </xs:simpleType>
+	<xs:simpleType name="ResultAspectType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Top" />
+			<xs:enumeration value="Bottom" />
+			<xs:enumeration value="Average" />
+		</xs:restriction>
+	</xs:simpleType>
+   <xs:simpleType name="AcquisitionAspectType">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Top" />
+         <xs:enumeration value="Bottom" />
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:complexType name="CouplingType">
+      <xs:sequence minOccurs="0">
+         <xs:element name="Loss" type="xs:double" />
+         <xs:element name="Reflectance" type="xs:double" minOccurs="0" />
+         <xs:element name="Location" type="xs:double" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="ResultsHandlerInfoType">
+      <xs:sequence minOccurs="0">
+         <xs:element name="BufferLength" type="xs:double" />
+      </xs:sequence>
+      <xs:attribute name="ID" type="xs:string" use="required" />
+   </xs:complexType>
+   <xs:complexType name="ResultsOTDRInfoType">
+      <xs:sequence minOccurs="0">
+         <xs:element name="CenterWavelength" type="xs:double" />
+      </xs:sequence>
+      <xs:attribute name="ID" type="xs:string" use="required" />
+   </xs:complexType>
+   <xs:complexType name="SlidingWindowType">
+      <xs:sequence minOccurs="0">
+         <xs:element name="MaxWindowAttenuation" type="xs:double" />
+         <xs:element name="MaxWindowAttenuationLocation" type="xs:double" />
+         <xs:element name="MaxWindowUniformity" type="xs:double" />
+         <xs:element name="MaxWindowUniformityLocation" type="xs:double" />
+         <xs:element name="MinWindowAttenuation" type="xs:double" />
+         <xs:element name="MinWindowAttenuationLocation" type="xs:double" />
+         <xs:element name="MinWindowUniformity" type="xs:double" />
+         <xs:element name="MinWindowUniformityLocation" type="xs:double" />
+      </xs:sequence>
+      <xs:attribute name="Count" type="xs:int" use="required" />
+   </xs:complexType>
+   <xs:complexType name="FiberEventsType">
+      <xs:sequence minOccurs="0">
+         <xs:element name="MaxPointLoss" type="xs:double" />
+         <xs:element name="MaxPointLossLocation" type="xs:double" />
+         <xs:element name="MinPointLoss" type="xs:double" />
+         <xs:element name="MinPointLossLocation" type="xs:double" />
+         <xs:element name="MaxReflectance" type="xs:double" minOccurs="0" />
+         <xs:element name="MaxReflectanceLocation" type="xs:double" minOccurs="0" />
+      </xs:sequence>
+      <xs:attribute name="Count" type="xs:int" use="required" />
+   </xs:complexType>
+   <xs:complexType name="FiberEventType">
+      <xs:sequence minOccurs="0">
+         <xs:element name="Location" type="xs:double" />
+         <xs:element name="Loss" type="xs:double" />
+         <xs:element name="Reflectance" type="xs:double" minOccurs="0"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="FiberEventsDetailType">
+      <xs:sequence minOccurs="0">
+         <xs:element name="FiberEvent" type="FiberEventType" minOccurs="0" maxOccurs="unbounded" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="SlidingWindowDetailType">
+      <xs:sequence minOccurs="0">
+         <xs:element name="CenterLocation" type="xs:double" />
+         <xs:element name="Attenuation" type="xs:double" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="SlidingWindowsDetailType">
+      <xs:sequence minOccurs="0">
+         <xs:element name="Window" type="SlidingWindowDetailType" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="LsaPointDeviationType">
+      <xs:sequence minOccurs="0">
+         <xs:element name="Location" type="xs:double" />
+         <xs:element name="Deviation" type="xs:double" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="LsaPointDeviationDetailType">
+      <xs:sequence minOccurs="0">
+         <xs:element name="Point" type="LsaPointDeviationType" minOccurs="0" maxOccurs="unbounded" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="DetailedMeasurementsType">
+      <xs:sequence minOccurs="0">
+         <xs:element name="FiberEventsDetail" type="FiberEventsDetailType" />
+         <xs:element name="SlidingWindows" type="SlidingWindowsDetailType" />
+         <xs:element name="LsaPointDeviations" type="LsaPointDeviationDetailType" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="FiberMeasurementsType">
+      <xs:sequence minOccurs="0">
+         <xs:element name="Attenuation" type="xs:double" />
+         <xs:element name="FiberLength" type="xs:double" />
+         <xs:element name="FiberLengthEntered" type="xs:double" />
+			<!--	LsaValid was added to cover absence of LSA because its values appear here without being wrapped
+					in an object. Default true so old files read in OK. -->
+			<xs:element name="LsaValid" type="xs:boolean" minOccurs="0" default="true" />
+			<xs:element name="LsaPointDeviation" type="xs:double" />
+         <xs:element name="LsaPointDeviationLocation" type="xs:double" />
+         <xs:element name="FiberEvents" type="FiberEventsType" minOccurs="0" />
+         <xs:element name="SlidingWindows" type="SlidingWindowType" minOccurs="0" />
+         <xs:element name="DetailedMeasurements" type="DetailedMeasurementsType" minOccurs="0" maxOccurs="1" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="ErrorInfoType">
+      <xs:sequence>
+         <xs:element name="Message" type="xs:string" />
+         <xs:element name="COMErrorCode" type="xs:int" default="0" minOccurs="0" />
+         <xs:element name="Source" type="xs:string" minOccurs="0" />
+         <xs:element name="Detail" type="xs:string" minOccurs="0" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="ResultType">
+      <xs:sequence>
+         <xs:element name="ResultDateTime" type="xs:dateTime" />
+         <xs:element name="Handler" type="ResultsHandlerInfoType" minOccurs="0" />
+         <xs:element name="OTDR" type="ResultsOTDRInfoType" minOccurs="0" />
+         <xs:element name="Coupling" type="CouplingType" minOccurs="0" />
+         <xs:element name="FiberMeasurements" type="FiberMeasurementsType" minOccurs="0" />
+         <xs:element name="ErrorInfo" type="ErrorInfoType" minOccurs="0" />
+         <!-- The "any" element is there to hold persisted state of 8000 analyzer in OTDRAnalysisDetail -->
+         <xs:any minOccurs="0" namespace="http://pkinetics.com/8000/analyzer" processContents="lax" />
+      </xs:sequence>
+      <xs:attribute name="ID" type="xs:string" use="required" />
+      <xs:attribute name="Aspect" type="ResultAspectType" use="required" />
+      <xs:attribute name="FiberEnd" type="xs:string" />
+      <xs:attribute name="ForceRetest" type="xs:boolean" default="false" />
+   </xs:complexType>
+   <xs:complexType name="TestResultsType">
+      <xs:sequence maxOccurs="3" minOccurs="0">
+         <xs:element name="Result" type="ResultType" />
+      </xs:sequence>
+      <xs:attribute name="WavelengthID" type="xs:string" use="required" />
+   </xs:complexType>
+   <xs:simpleType name="SeverityType">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Pass" />
+         <xs:enumeration value="Flag" />
+         <xs:enumeration value="Fail" />
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="PolarityType">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Positive" />
+         <xs:enumeration value="Negative" />
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="NonComplianceResultType">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Fiber" />
+         <xs:enumeration value="Coupling" />
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:complexType name="NonComplianceType">
+      <xs:sequence>
+         <xs:element name="Value" type="xs:double" minOccurs="0" />
+         <xs:element name="Limit" type="xs:double" minOccurs="0" />
+         <xs:element name="Location" type="xs:double" minOccurs="0" />
+      </xs:sequence>
+      <xs:attribute name="WavelengthID" type="xs:string" use="required" />
+      <xs:attribute name="Aspect" type="ResultAspectType" use="required" />
+      <xs:attribute name="Severity" type="SeverityType" use="required" />
+      <xs:attribute name="Polarity" type="PolarityType" use="required" />
+      <xs:attribute name="Type" type="NonComplianceResultType" use="required" />
+      <xs:attribute name="Result" type="xs:string" use="required" />
+      <xs:attribute name="Spec" type="xs:string" use="required" />
+   </xs:complexType>
+   <xs:complexType name="NonCompliancesType">
+      <xs:sequence>
+         <xs:element name="NonCompliance" type="NonComplianceType" maxOccurs="unbounded" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="UserResultsType">
+      <xs:sequence>
+         <xs:any minOccurs="0" processContents="lax" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="StatusType">
+      <xs:sequence>
+         <xs:element name="UserResults" type="UserResultsType" minOccurs="0" />
+         <xs:element name="NonCompliances" type="NonCompliancesType" minOccurs="0" />
+         <xs:element name="EndDetected" type="xs:boolean" default="false" minOccurs="0" />
+         <xs:element name="TestResults" type="TestResultsType" minOccurs="0" maxOccurs="unbounded" />
+      </xs:sequence>
+      <xs:attribute name="Aspect" type="DirectionalityAspectType" use="required" />
+   </xs:complexType>
+   <xs:complexType name="RestrictionType">
+      <xs:sequence>
+         <xs:element name="Desc" minOccurs="1" maxOccurs="unbounded">
+            <xs:complexType>
+               <xs:attribute name="Allow" type="xs:string" />
+               <xs:attribute name="Disallow" type="xs:string" />
+            </xs:complexType>
+         </xs:element>
+      </xs:sequence>
+      <xs:attribute name="ID" type="xs:string" use="required" />
+   </xs:complexType>
+   <xs:complexType name="RestrictionsType">
+      <xs:sequence>
+         <xs:element name="Restriction" type="RestrictionType" minOccurs="0" maxOccurs="unbounded" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:simpleType name="CableSequentialType">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Low" />
+         <xs:enumeration value="High" />
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:complexType name="CableInfoType">
+      <xs:sequence>
+         <xs:element name="TestDateTime" type="xs:dateTime" minOccurs="0" />
+         <xs:element name="FiberLength" type="xs:double" minOccurs="0" default="0" />
+         <xs:element name="MeasuredLength" type="xs:double" minOccurs="0" default="0" />
+         <xs:element name="StationID" type="xs:string" minOccurs="0" />
+         <xs:element name="Directionality" type="DirectionalityAspectType" minOccurs="0" />
+         <xs:element name="FirstEndTested" type="AcquisitionAspectType" minOccurs="0" />
+         <xs:element name="CableSequential" type="CableSequentialType" minOccurs="0" />
+         <xs:element name="EndDetectorEnabled" type="xs:boolean" minOccurs="0" default="false" />
+         <xs:element name="OperatorName" type="xs:string" minOccurs="0" />
+         <xs:element name="SelectedCable" type="xs:string" minOccurs="0" />
+         <xs:element name="FiberID" type="FiberIDType" minOccurs="0" maxOccurs="unbounded" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="FiberIDType">
+      <xs:simpleContent>
+         <xs:extension base="xs:string">
+            <xs:attribute name="Label" type="xs:string" use="required" />
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="EquipmentType">
+      <xs:sequence>
+         <xs:element name="OTDRStations" type="OTDRStationsType">
+            <xs:key name="OTDRStationSerial">
+               <xs:selector xpath="oasys:OTDRStation" />
+               <xs:field xpath="@SerialNumber" />
+            </xs:key>
+         </xs:element>
+         <xs:element name="Handlers" type="HandlersType" />
+         <xs:element name="EndDetectors" type="EndDetectorsType" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:simpleType name="RibbonClipTypes">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="StandardRibbonClip" />
+         <xs:enumeration value="LooseFiberClip" />
+      </xs:restriction>
+   </xs:simpleType>
+	<xs:complexType name="BufferFiberType">
+      <xs:sequence>
+			<xs:element name="OTDRSerialNumber" type="xs:string" minOccurs="0" />
+			<xs:element name="FiberType" type="xs:string" />
+         <xs:element name="Length" type="xs:double" />
+         <xs:element name="CalibrationWavelengthID" type="xs:string" minOccurs="0" />
+         <xs:element name="OTDRPort" type="xs:int" />
+         <xs:element name="CalibrationDateTime" type="xs:dateTime" />
+      </xs:sequence>
+      <xs:attribute name="ID" type="xs:string" use="required" />
+   </xs:complexType>
+	<xs:complexType name="BaseHandlerType">
+		<xs:sequence>
+			<xs:element name="Model" type="xs:string" minOccurs="0" />
+			<xs:element name="BufferFiber" type="BufferFiberType" maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:attribute name="ID" type="xs:string" use="required" />
+		<xs:attribute name="SerialNumber" type="xs:string" />
+	</xs:complexType>
+	<xs:complexType name="OasysHandlerType">
+      <xs:complexContent>
+         <xs:extension base="BaseHandlerType" />
+      </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="OpticalSwitchHandlerType">
+      <xs:complexContent>
+         <xs:extension base="BaseHandlerType">
+            <xs:sequence>
+               <xs:element name="SwitchModelType" type="xs:string" />
+               <xs:element name="SwitchModelName" type="xs:string" />
+               <xs:element name="IO_Parameters" type="xs:string" />
+               <xs:element name="NumberOfAligners" type="xs:int" />
+               <xs:element name="Delay" type="xs:double" />
+               <xs:element name="AlignerModel" type="xs:string" />
+            </xs:sequence>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="HandlersType">
+      <xs:choice maxOccurs="unbounded" minOccurs="0" >
+         <xs:element name="OasysHandler" type="OasysHandlerType" />
+         <xs:element name="ManualHandler" type="BaseHandlerType" />
+         <xs:element name="OpticalSwitchHandler" type="OpticalSwitchHandlerType" />
+      </xs:choice>
+   </xs:complexType>
+   <xs:complexType name="EndDetectorType">
+      <xs:sequence>
+         <xs:choice maxOccurs="1">
+            <xs:element name="DetectorObject" type="ObjectSpecType" minOccurs="0" />
+            <xs:element name="EndDetectorType" type="EndDetectorTypeType" minOccurs="1" />
+         </xs:choice>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="EndDetectorsType">
+      <xs:sequence>
+         <xs:element name="EndDetector" type="EndDetectorType" minOccurs="0" maxOccurs="unbounded" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="RibbonTypeType">
+      <xs:complexContent>
+         <xs:extension base="IDTaggedSetupType">
+            <xs:sequence>
+               <xs:element name="EdgeThickness" type="xs:double" />
+               <xs:element name="Gap" type="xs:double" />
+               <xs:element name="RibbonPack" type="xs:int" />
+            </xs:sequence>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="RibbonTypesType">
+      <xs:sequence>
+         <xs:element name="RibbonType" type="RibbonTypeType" minOccurs="0" maxOccurs="unbounded" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="AnalysisSetupsType">
+      <xs:sequence>
+         <xs:element name="AnalysisSetup" type="AnalysisSetupType" minOccurs="0" maxOccurs="unbounded">
+            <xs:key name="AnalysisSetupWavelength">
+               <xs:selector xpath="oasys:AnalysisWavelengthSetup" />
+               <xs:field xpath="@WavelengthID" />
+            </xs:key>
+         </xs:element>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="AnalysisSetupType">
+      <xs:complexContent>
+         <xs:extension base="IDTaggedSetupType">
+            <xs:sequence>
+               <xs:element name="UseMeasuredFiberLength" type="FiberLengthModeType" minOccurs="0" />
+               <xs:element name="UseAbsoluteFiberLengthLimits" type="xs:boolean" minOccurs="0" />
+               <xs:element name="AnalysisWavelengthSetup" type="AnalysisWavelengthSetupType" maxOccurs="unbounded" />
+            </xs:sequence>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="AnalysisWavelengthSetupType">
+      <xs:sequence>
+         <xs:element name="AnalysisParams" type="AnalysisParamsType" />
+         <xs:element name="Limits" type="LimitSetType" minOccurs="0" maxOccurs="2" />
+      </xs:sequence>
+      <xs:attribute name="WavelengthID" type="xs:string" use="required" />
+   </xs:complexType>
+   <xs:complexType name="AnalysisParamsType">
+      <xs:sequence>
+         <xs:element name="EndLossThresh" type="xs:double" />
+         <xs:element name="MaxAttenuation" type="xs:double" />
+         <xs:element name="MinAttenuation" type="xs:double" />
+         <xs:element name="Sensitivity" type="xs:double" />
+         <xs:element name="Wavelength" type="xs:int" />
+         <xs:element name="WindowWidth" type="xs:double" />
+         <xs:element name="WindowStep" type="xs:double" />
+         <xs:element name="WindowStartOffset" type="xs:double" />
+         <xs:element name="WindowStopOffset" type="xs:double" />
+         <xs:element name="WindowStepAround" type="xs:boolean" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="LimitsType">
+      <xs:sequence>
+         <xs:element name="MaxFail" type="xs:double" minOccurs="0" />
+         <xs:element name="MaxFlag" type="xs:double" minOccurs="0" />
+         <xs:element name="MinFlag" type="xs:double" minOccurs="0" />
+         <xs:element name="MinFail" type="xs:double" minOccurs="0" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="LimitSetType">
+      <xs:sequence>
+         <xs:element name="Attenuation" type="LimitsType" />
+         <xs:element name="BufferLoss" type="LimitsType" />
+         <xs:element name="BufferReflectance" type="LimitsType" />
+         <xs:element name="FiberLength" type="LimitsType" />
+         <xs:element name="LsaPointDeviation" type="LimitsType" />
+         <xs:element name="EventLoss" type="LimitsType" />
+         <xs:element name="EventReflectance" type="LimitsType" />
+         <xs:element name="WindowAttenuation" type="LimitsType" />
+         <xs:element name="WindowUniformity" type="LimitsType" />
+      </xs:sequence>
+      <xs:attribute name="Aspect" type="DirectionalityAspectType" use="required" />
+   </xs:complexType>
+   <xs:complexType name="ObjectSpecType">
+      <xs:attribute name="Name" type="xs:string" />
+      <xs:attribute name="Assembly" type="xs:string" />
+   </xs:complexType>
+   <xs:simpleType name="EndDetectorTypeType">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Manual" />
+         <xs:enumeration value="USBMandrel" />
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:complexType name="CableSetupType">
+      <xs:sequence>
+         <xs:element name="Restrictions" type="RestrictionsType" minOccurs="0" maxOccurs="1">
+            <xs:key name="Restriction">
+               <xs:selector xpath="oasys:Restriction" />
+               <xs:field xpath="@ID" />
+            </xs:key>
+         </xs:element>
+         <xs:element name="OTDRSetups" type="OTDRSetupsType" minOccurs="0" maxOccurs="1">
+            <xs:key name="OTDRSetup">
+               <xs:selector xpath="oasys:OTDRSetup" />
+               <xs:field xpath="@ID" />
+            </xs:key>
+         </xs:element>
+         <xs:element name="AnalysisSetups" type="AnalysisSetupsType" minOccurs="0" maxOccurs="1">
+            <xs:key name="AnalysisSetup">
+               <xs:selector xpath="oasys:AnalysisSetup" />
+               <xs:field xpath="@ID" />
+            </xs:key>
+         </xs:element>
+         <xs:element name="FiberTypes" type="FiberTypesType" minOccurs="0" maxOccurs="1">
+            <xs:key name="FiberType">
+               <xs:selector xpath="oasys:FiberType" />
+               <xs:field xpath="@ID" />
+            </xs:key>
+         </xs:element>
+         <xs:element name="RibbonTypes" type="RibbonTypesType" minOccurs="0" maxOccurs="1">
+            <xs:key name="RibbonType">
+               <xs:selector xpath="oasys:RibbonType" />
+               <xs:field xpath="@ID" />
+            </xs:key>
+         </xs:element>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="FiberLengthModeType">
+      <xs:attribute name="FiberToCableLengthRatio" type="xs:double" use="required"/>
+   </xs:complexType>
+   <xs:simpleType name="FiberTestType">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Enabled" />
+         <xs:enumeration value="Disabled" />
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:attributeGroup name="CableNodeAttributes">
+      <xs:attribute name="ID" type="xs:string" use="required" />
+      <xs:attribute name="Desc" type="xs:string" use="required" />
+      <xs:attribute name="OTDRSetup" type="xs:string" />
+      <xs:attribute name="AnalysisSetup" type="xs:string" />
+      <xs:attribute name="FiberType" type="xs:string" />
+      <xs:attribute name="RibbonType" type="xs:string" />
+      <xs:attribute name="Test" type="FiberTestType" default="Enabled" />
+   </xs:attributeGroup>
+   <xs:complexType name="CableNodeType">
+      <xs:sequence>
+         <xs:element name="CableSetup" type="CableSetupType" minOccurs="0" />
+         <xs:element name="CableInfo" type="CableInfoType" minOccurs="0">
+            <xs:key name="FiberIDLabel">
+               <xs:selector xpath="oasys:FiberID" />
+               <xs:field xpath="@Label" />
+            </xs:key>
+         </xs:element>
+         <xs:element name="Equipment" type="EquipmentType" minOccurs="0" />
+      </xs:sequence>
+      <xs:attributeGroup ref="CableNodeAttributes" />
+   </xs:complexType>
+   <xs:complexType name="FiberType">
+      <xs:complexContent>
+         <xs:extension base="CableNodeType">
+            <xs:sequence>
+               <xs:element name="Status" type="StatusType" minOccurs="0" />
+            </xs:sequence>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="GroupType">
+      <xs:complexContent>
+         <xs:extension base="CableNodeType">
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+               <xs:element name="Group" type="GroupType">
+                  <xs:key name="FiberColor">
+                     <xs:selector xpath="oasys:Fiber" />
+                     <xs:field xpath="@ID" />
+                  </xs:key>
+                  <xs:key name="GroupColor">
+                     <xs:selector xpath="oasys:Group" />
+                     <xs:field xpath="@ID" />
+                  </xs:key>
+               </xs:element>
+               <xs:element name="Fiber" type="FiberType"></xs:element>
+            </xs:choice>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="CableSystemType">
+      <xs:sequence>
+         <xs:choice>
+            <xs:element name="Cable" type="GroupType" maxOccurs="1" />
+            <xs:element name="Group" type="GroupType" maxOccurs="1" />
+            <xs:element name="Fiber" type="FiberType" maxOccurs="1" />
+         </xs:choice>
+      </xs:sequence>
+      <xs:attribute name="OasysVersion" type="xs:string" use="optional" />
+   </xs:complexType>
+   <xs:element name="CableSystem" type="CableSystemType" />
+   <xs:element name="Fiber" type="FiberType" />
+   <xs:element name="Group" type="GroupType" />
+   <xs:element name="AnalysisSetup" type="AnalysisSetupType" />
+   <xs:element name="RibbonType" type="RibbonTypeType" />
+   <xs:element name="CableInfo" type="CableInfoType" />
+   <xs:element name="Status" type="StatusType" />
+   <xs:element name="Handlers" type="HandlersType" />
+   <xs:element name="EndDetectors" type="EndDetectorsType" />
+	<xs:element name="RibbonClipTypes" type="RibbonClipTypes" />
+</xs:schema>

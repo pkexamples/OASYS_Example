@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema id="OTDR" targetNamespace="http://pkinetics.com/oasys.net" elementFormDefault="qualified"
+        xmlns="http://pkinetics.com/oasys.net" xmlns:oasys="http://pkinetics.com/oasys.net"
+        xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<!-- These are common types pertaining to OTDR usage and related fiber properties -->
+	<xs:complexType name="OTDRStationType">
+		<xs:sequence>
+			<xs:element name="StationID" type="xs:string" minOccurs="0" maxOccurs="1" />
+			<xs:element name="AvailableOpticalPort" type="xs:int" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="Wavelength" type="OTDRStationWavelengthType" maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:attribute name="SerialNumber" type="xs:string" use="required" />
+		<xs:attribute name="ModelNumber" type="xs:string" use="required" />
+	</xs:complexType>
+	<xs:complexType name="OTDRStationsType">
+		<xs:sequence>
+			<xs:element name="OTDRStation" type="OTDRStationType" maxOccurs="unbounded">
+				<xs:key name="OTDRStationWavelength">
+					<xs:selector xpath="oasys:Wavelength" />
+					<xs:field xpath="@WavelengthID" />
+				</xs:key>
+				<xs:unique name="OTDRStationWavelengthAlias">
+					<xs:selector xpath="oasys:Wavelength" />
+					<xs:field xpath="@Alias" />
+				</xs:unique>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OTDRStationWavelengthType">
+		<xs:sequence>
+			<xs:element name="CenterWavelength" type="xs:double" />
+			<xs:element name="NominalWavelength" type="xs:int" />
+			<xs:element name="Bandwidth" type="xs:int" minOccurs="1" maxOccurs="unbounded" />
+			<xs:element name="WavelengthPorts" type="xs:int" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="NumberOfGains" type="xs:int" minOccurs="0" default="0" />
+			<xs:element name="MinimumPulseWidth" type="xs:double" minOccurs="0" default="0" />
+			<xs:element name="MaximumPulseWidth" type="xs:double" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:attribute name="WavelengthID" type="xs:string" use="required" />
+		<xs:attribute name="Alias" type="xs:string" use="optional" />
+	</xs:complexType>
+	<xs:complexType name="FiberWavelengthPropertiesType">
+		<xs:sequence>
+			<xs:element name="GroupIndex" type="xs:double" />
+			<xs:element name="BackscatterCoefficient" type="xs:double" />
+		</xs:sequence>
+		<xs:attribute name="Wavelength" type="xs:int" use="required" />
+	</xs:complexType>
+	<xs:complexType name="IDTaggedSetupType">
+		<xs:attribute name="ID" type="xs:string" use="required" />
+	</xs:complexType>
+	<xs:complexType name="BufferCompatibilityType">
+		<xs:sequence>
+			<xs:element name="CompatibilityLevel" type="xs:double" />
+		</xs:sequence>
+		<xs:attribute name="BufferType" type="xs:string" use="required" />
+	</xs:complexType>
+	<xs:complexType name="BufferCompatibilitiesType">
+		<xs:sequence>
+			<xs:element name="BufferCompatibility" type="BufferCompatibilityType" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FiberTypeType">
+		<xs:complexContent>
+			<xs:extension base="IDTaggedSetupType">
+				<xs:sequence>
+					<xs:element name="CoatingDiameter" type="xs:double" />
+					<xs:element name="FiberDiameter" type="xs:double" />
+					<xs:element name="EndDetector" type="EndDetectorParametersType" minOccurs="0" />
+					<xs:element name="BufferTypes" type="BufferCompatibilitiesType" minOccurs="0" maxOccurs="1">
+						<xs:key name="BufferCompatibility">
+							<xs:selector xpath="oasys:BufferCompatibility" />
+							<xs:field xpath="@BufferType" />
+						</xs:key>
+					</xs:element>
+					<xs:element name="WavelengthProperties" type="FiberWavelengthPropertiesType" maxOccurs="unbounded" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="FiberTypesType">
+		<xs:sequence>
+			<xs:element name="FiberType" type="FiberTypeType" minOccurs="0" maxOccurs="unbounded">
+				<xs:key name="FiberTypeWavelength">
+					<xs:selector xpath="oasys:WavelengthProperties" />
+					<xs:field xpath="@Wavelength" />
+				</xs:key>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="RangeModeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="LengthBased" />
+			<xs:enumeration value="FixedRange" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AverageModeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="TimeBased" />
+			<xs:enumeration value="CountBased" />
+			<xs:enumeration value="NoiseBased" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="WavelengthAvailabilityType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Enabled" />
+			<xs:enumeration value="Selectable" />
+			<xs:enumeration value="Disabled" />
+			<xs:enumeration value="EnabledAlways" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="OTDRSetupsType">
+		<xs:sequence>
+			<xs:element name="OTDRSetup" type="OTDRSetupType" minOccurs="0" maxOccurs="unbounded">
+				<xs:key name="OTDRSetupWavelength">
+					<xs:selector xpath="oasys:OTDRWavelengthSetup" />
+					<xs:field xpath="@WavelengthID" />
+				</xs:key>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OTDRSetupType">
+		<xs:complexContent>
+			<xs:extension base="IDTaggedSetupType">
+				<xs:sequence>
+					<xs:element name="AdditionalRange" type="xs:double" />
+					<xs:element name="Range" type="xs:double" />
+					<xs:element name="RangeMode" type="RangeModeType" />
+					<xs:element name="OTDRWavelengthSetup" type="OTDRWavelengthSetupType" maxOccurs="unbounded" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="OTDRWavelengthSetupType">
+		<xs:sequence>
+			<xs:element name="AverageCounts" type="xs:int" />
+			<xs:element name="AverageMode" type="AverageModeType" />
+			<xs:element name="AverageNoise" type="xs:double" />
+			<xs:element name="AverageNoiseLocation" type="xs:double" />
+			<xs:element name="AverageNoiseTimeout" type="xs:double" />
+			<xs:element name="AverageNoiseByRMS" type="xs:int" minOccurs="0" default="0" />
+			<xs:element name="AverageTime" type="xs:double" />
+			<xs:element name="Bandwidth" type="xs:int" />
+			<xs:element name="CorrectForCenterWavelength" type="xs:boolean" minOccurs="0" default="false" />
+			<xs:element name="Gain" type="xs:int" />
+			<xs:element name="PointSpacing" type="xs:double" />
+			<xs:element name="Pulsewidth" type="xs:double" />
+			<xs:element name="Smoothing" type="xs:boolean" minOccurs="0" />
+			<xs:element name="SmoothingWidth" type="xs:int" minOccurs="0" />
+			<xs:element name="Wavelength" type="xs:int" />
+		</xs:sequence>
+		<xs:attribute name="Availability" type="WavelengthAvailabilityType" default="Enabled" />
+		<xs:attribute name="WavelengthID" type="xs:string" use="required" />
+	</xs:complexType>
+	<xs:complexType name="EndDetectorParametersType">
+		<xs:sequence>
+			<xs:element name="MinimumDisengagedReflectance" type="xs:double" minOccurs="0" default="-45" />
+			<xs:element name="MinimumReflectanceDifference" type="xs:double" minOccurs="0" default="0.5" />
+			<xs:element name="MaximumEngagedReflectance" type="xs:double" minOccurs="0" default="0" />
+			<xs:element name="WavelengthID" type="xs:string" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="FiberType" type="FiberTypeType" />
+	<xs:element name="OTDRSetup" type="OTDRSetupType" />
+	<xs:element name="OTDRWavelengthSetup" type="OTDRWavelengthSetupType" />
+	<xs:element name="OTDRStations" type="OTDRStationsType" />
+</xs:schema>

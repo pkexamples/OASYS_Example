@@ -1,0 +1,536 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PreProcessor</name>
+    </assembly>
+    <members>
+        <member name="T:PhotonKinetics.OASYS.Examples.AboutForm">
+            <summary>
+            The about box for the program
+            </summary>
+        </member>
+        <member name="M:PhotonKinetics.OASYS.Examples.AboutForm.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:PhotonKinetics.OASYS.Examples.AboutForm" /> class.
+            </summary>
+        </member>
+        <member name="M:PhotonKinetics.OASYS.Examples.AboutForm.OKButton_Click(System.Object,System.EventArgs)">
+            <summary>
+            Handles the OKButton click event.
+            </summary>
+            <param name="sender">The OKButton Button.</param>
+            <param name="e">EventArgs from the Click event.</param>
+        </member>
+        <member name="T:PhotonKinetics.OASYS.Examples.SimpleCableData">
+            <summary>
+            Business object containing simple cable information
+            </summary>
+        </member>
+        <member name="M:PhotonKinetics.OASYS.Examples.SimpleCableData.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:PhotonKinetics.OASYS.Examples.SimpleCableData"/> class.
+            </summary>
+        </member>
+        <member name="T:PhotonKinetics.OASYS.Examples.SimpleCableData.CableTypes">
+            <summary>
+            Indicates whether the pre-processor will have ribbons or loose fibers
+            </summary>
+        </member>
+        <member name="F:PhotonKinetics.OASYS.Examples.SimpleCableData.CableTypes.Loose">
+            <summary>
+            Indicates the cable has only loose fibers within tubes
+            </summary>
+        </member>
+        <member name="F:PhotonKinetics.OASYS.Examples.SimpleCableData.CableTypes.Ribbon">
+            <summary>
+            Indicates the cable has ribbons within tubes
+            </summary>
+        </member>
+        <member name="P:PhotonKinetics.OASYS.Examples.SimpleCableData.CableID">
+            <summary>
+            Gets or sets a string representing the root level cable identifier
+            </summary>
+        </member>
+        <member name="P:PhotonKinetics.OASYS.Examples.SimpleCableData.OperatorID">
+            <summary>
+            Gets or sets a string representing the operator's identification
+            </summary>
+        </member>
+        <member name="P:PhotonKinetics.OASYS.Examples.SimpleCableData.NumberOfFibers">
+            <summary>
+            Gets or sets the number of fibers in each tube or ribbon
+            </summary>
+        </member>
+        <member name="P:PhotonKinetics.OASYS.Examples.SimpleCableData.NumberOfTubes">
+            <summary>
+            Gets or sets the number of tubes in the cable
+            </summary>
+        </member>
+        <member name="P:PhotonKinetics.OASYS.Examples.SimpleCableData.NumberOfRibbons">
+            <summary>
+            Gets or sets the number of ribbons in each tube (if cableType is CableTypes.Ribbon)
+            </summary>
+        </member>
+        <member name="P:PhotonKinetics.OASYS.Examples.SimpleCableData.CableType">
+            <summary>
+            Gets or sets the ribbon / loose tube cable type
+            </summary>
+        </member>
+        <member name="P:PhotonKinetics.OASYS.Examples.SimpleCableData.CableLength">
+            <summary>
+            Gets or sets the cable length in meters
+            </summary>
+        </member>
+        <member name="P:PhotonKinetics.OASYS.Examples.SimpleCableData.FiberTypeID">
+            <summary>
+            Gets or sets the ID of the selected Fiber Type setup
+            </summary>
+        </member>
+        <member name="P:PhotonKinetics.OASYS.Examples.SimpleCableData.RibbonTypeID">
+            <summary>
+            Gets or sets the ID of the selected Ribbon Type setup
+            </summary>
+        </member>
+        <member name="P:PhotonKinetics.OASYS.Examples.SimpleCableData.OtdrSetupID">
+            <summary>
+            Gets or sets the ID of the selected OTDR setup
+            </summary>
+        </member>
+        <member name="P:PhotonKinetics.OASYS.Examples.SimpleCableData.AnalysisSetupID">
+            <summary>
+            Gets or sets the ID of the selected Analysis setup
+            </summary>
+        </member>
+        <member name="T:PhotonKinetics.OASYS.Examples.Program">
+            <summary>
+            A class to encapsulate the pre-processor main entry point
+            </summary>
+        </member>
+        <member name="M:PhotonKinetics.OASYS.Examples.Program.Main">
+            <summary>
+            Main entry point for the application
+            </summary>
+        </member>
+        <member name="T:PhotonKinetics.OASYS.Examples.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:PhotonKinetics.OASYS.Examples.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:PhotonKinetics.OASYS.Examples.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:PhotonKinetics.OASYS.Examples.Properties.Resources.Logo_150ppi_RGB">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:PhotonKinetics.OASYS.Examples.Properties.Resources.PhotonKineticsAppIcons">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+            </summary>
+        </member>
+        <member name="T:PhotonKinetics.OASYS.Examples.SimpleCableWriter">
+            <summary>
+            Writes a cable definition file using inputs from a simple pre-processor
+            </summary>
+        </member>
+        <member name="F:PhotonKinetics.OASYS.Examples.SimpleCableWriter.colors">
+            <summary>
+            Colors to be used as identifiers to the cable elements
+            </summary>
+        </member>
+        <member name="F:PhotonKinetics.OASYS.Examples.SimpleCableWriter.newCable">
+            <summary>
+            The <see cref="T:PhotonKinetics.OASYS.CableSetupType"/> object this object is responsible for building
+            </summary>
+        </member>
+        <member name="F:PhotonKinetics.OASYS.Examples.SimpleCableWriter.preProcData">
+            <summary>
+            The input data required to build the cable.
+            </summary>
+        </member>
+        <member name="M:PhotonKinetics.OASYS.Examples.SimpleCableWriter.#ctor(PhotonKinetics.OASYS.Examples.SimpleCableData)">
+            <summary>
+            Initializes a new instance of the <see cref="T:PhotonKinetics.OASYS.Examples.SimpleCableWriter"/> class.
+            </summary>
+            <param name="data">A <see cref="T:PhotonKinetics.OASYS.Examples.SimpleCableData"/> instance.</param>
+        </member>
+        <member name="M:PhotonKinetics.OASYS.Examples.SimpleCableWriter.WriteCableFile">
+            <summary>
+            Writes the <c>.pkcbd</c> file to the output path specified in the OASYS.net
+            Local Station Settings.
+            </summary>
+        </member>
+        <member name="M:PhotonKinetics.OASYS.Examples.SimpleCableWriter.SetupCableObjectParts">
+            <summary>
+            Creates and root cable node and its high-level properties
+            </summary>
+        </member>
+        <member name="M:PhotonKinetics.OASYS.Examples.SimpleCableWriter.FormCableStructure">
+            <summary>
+            Build the cable structure and assign measurement parameters
+            </summary>
+            <remarks>
+            The cable measurement parameters are hierarchical and can be assigned at any
+            level in the cable structure.  This program only assigns measurement
+            parameters at the root cable level, but shows how parameters can be assigned
+            at any fiber group or individual fiber level in commented lines. Any
+            parameters assigned at a lower level will override parameters assigned at a
+            higher level. If you assign measurement parameters to a fiber, then those
+            fiber settings will be used and override anything assigned to the tube level,
+            but for that fiber only.  For a cable definition to be valid for measurement,
+            then at a minimum all fiber nodes must either inherit measurement parameters
+            from a higher level, and any fiber nodes that do not inherit parameters from
+            a higher level group node must have parameters assigned to them explicitly.
+            Further validation would check that all of the parameters provided are
+            compatible with the OTDR hardware, for example available wavelengths, etc.
+            </remarks>
+        </member>
+        <member name="M:PhotonKinetics.OASYS.Examples.SimpleCableWriter.CreateNewUserLabels">
+            <summary>
+            Creates the FiberID entries
+            </summary>
+            <remarks>
+            <para>
+            NOTE 1: It is not necessary to provide a "value" (the response to a user label) if it is desired
+            for the operator to input a response to the user prompt at measurement time.
+            </para>
+            <para>
+            NOTE 2: The first user label (i.e .FiberID[0]) always defines the "Cable ID" which is used as the
+            data output directory name and cable results file name.  The FiberID[0].Label can be set to any desired
+            text string, but whatever the FiberID[0].Value is set to will always be used as the data output
+            directory name and cable results file name.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:PhotonKinetics.OASYS.Examples.SimpleCableWriter.SaveCableDefinitionFile">
+            <summary>
+            Writes the cable definition file
+            </summary>
+        </member>
+        <member name="T:PhotonKinetics.OASYS.Examples.MainForm">
+            <summary>
+            The main form of the Pre-processor.
+            </summary>
+        </member>
+        <member name="F:PhotonKinetics.OASYS.Examples.MainForm.data">
+            <summary>
+            Object to store information needed to build a simple cable.
+            </summary>
+        </member>
+        <member name="F:PhotonKinetics.OASYS.Examples.MainForm.log">
+            <summary>
+            A FileStream to provide logging service.
+            </summary>
+        </member>
+        <member name="F:PhotonKinetics.OASYS.Examples.MainForm.traceListener">
+            <summary>
+            A TextWriterTraceListener to attach to Trace output for logging.
+            </summary>
+        </member>
+        <member name="F:PhotonKinetics.OASYS.Examples.MainForm.canLog">
+            <summary>
+            State holding flag to indicate the application can write to its log file.
+            </summary>
+        </member>
+        <member name="M:PhotonKinetics.OASYS.Examples.MainForm.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:PhotonKinetics.OASYS.Examples.MainForm"/> class.
+            </summary>
+        </member>
+        <member name="M:PhotonKinetics.OASYS.Examples.MainForm.Dispose(System.Boolean)">
+            <summary>
+            Releases unmanaged resources.
+            </summary>
+            <param name="disposing">Flag that indicates if Dispose was already called.</param>
+        </member>
+        <member name="M:PhotonKinetics.OASYS.Examples.MainForm.MainForm_FormClosing(System.Object,System.Windows.Forms.FormClosingEventArgs)">
+            <summary>
+            Handler for the FormClosing event
+            </summary>
+            <param name="sender">A reference to this form.</param>
+            <param name="e">The <c>FormClosingEventArgs</c> from the event.</param>
+            <remarks>
+            This is here to pick up when someone closes by clicking the big red X, or
+            pressing Alt-F4, or killing it with Task Manager, or other means other than
+            clicking a button or hitting Escape (which activates the Cancel button.) It
+            ensures a proper "cancel" is sent to OASYS.net. All closes that occur due to
+            the program cause a specific dialog result to be set, so DialogResult.None
+            will indicate an external cause.
+            </remarks>
+        </member>
+        <member name="M:PhotonKinetics.OASYS.Examples.MainForm.MainForm_Load(System.Object,System.EventArgs)">
+            <summary>
+            Handler for the Load event
+            </summary>
+            <param name="sender">A reference to this form.</param>
+            <param name="e">The <c>EventArgs</c> from the Load event.</param>
+            <remarks>
+            For Version 3.x.x of OASYS.net and later the following three command line tokens are
+            accessible via Environment.GetCommandLineArgs():
+            1) The file path of the pre-processor application being launched
+            2) The directory location/file name of where to store the new cable definition
+                (this is how OASYS knows what <c>.pkcbd</c> file to use for the next measurement)
+                a)  Note: this is set under the OASYS software <c>Configure ->
+                    OASYS.NET Setup -> Local Stations settings -> Preprocessor Cable File</c>
+            3) The location and name of cable definition file SENT to the pre-processor
+                (this is an optional <c>.pkcbd</c> file location for pre-processor to consume and use)
+                a)  Note: this is only included if the 'Send cable file to pre-processor'
+                    option is selected.  If that option is NOT selected, then
+                    only two pass parameters will be sent.
+                b)  Note: the actual cable definition file sent to the pre-processor depends
+                    upon how the measurement was invoked:
+                    i)  If 'Next Test' is selected the <c>.pkcbd</c> file will be the file that was
+                        used for the previous measurement.
+                    ii) If 'New Test' is selected and a cable manually formed (or loaded),
+                        it will send that specific <c>.pkcbd</c> file.
+            </remarks>
+        </member>
+        <member name="M:PhotonKinetics.OASYS.Examples.MainForm.UpdateCableTypeDisplay">
+            <summary>
+            Updates GUI for selected cable type (loose or ribbon)
+            </summary>
+        </member>
+        <member name="M:PhotonKinetics.OASYS.Examples.MainForm.InitFormColors">
+            <summary>
+            Sets colors on controls
+            </summary>
+        </member>
+        <member name="M:PhotonKinetics.OASYS.Examples.MainForm.Cancel_Click(System.Object,System.EventArgs)">
+            <summary>
+            Handler for Cancel button's Click event.
+            </summary>
+            <param name="sender">The Cancel button.</param>
+            <param name="e">The EventArgs from the Click event</param>
+        </member>
+        <member name="M:PhotonKinetics.OASYS.Examples.MainForm.Measure_Click(System.Object,System.EventArgs)">
+            <summary>
+            Handler for Measure button
+            </summary>
+            <param name="sender">The Measure button.</param>
+            <param name="e">The EventArgs from the Click event.</param>
+            <remarks>
+            Validates user inputs, builds the cable, writes the cable definition file,
+            and closes the pre-processor.
+            </remarks>
+        </member>
+        <member name="M:PhotonKinetics.OASYS.Examples.MainForm.RadioButton_CheckedChanged(System.Object,System.EventArgs)">
+            <summary>
+            Handler for `Loose` and `Ribbon` radio button CheckChanged event.
+            </summary>
+            <param name="sender">The <c>RadioButton</c> that changed state.</param>
+            <param name="e">The <c>EventArgs</c> from the CheckChanged event.</param>
+        </member>
+        <member name="M:PhotonKinetics.OASYS.Examples.MainForm.About_Click(System.Object,System.EventArgs)">
+            <summary>
+            Handler for About button Click event.
+            </summary>
+            <param name="sender">The About button.</param>
+            <param name="e">The EventArgs from the Click event.</param>
+        </member>
+        <member name="M:PhotonKinetics.OASYS.Examples.MainForm.GetFiberNumber">
+            <summary>
+            Gets the number of fibers from the <c>txtFibers</c> TextBox.
+            </summary>
+            <returns>An integer representing the number of fibers specified by the user.</returns>
+        </member>
+        <member name="M:PhotonKinetics.OASYS.Examples.MainForm.GetTubeNumber">
+            <summary>
+            Gets the number of tubes from the <c>txtTubes</c> TextBox.
+            </summary>
+            <returns>An integer representing the number of tubes specified by the user.</returns>
+        </member>
+        <member name="M:PhotonKinetics.OASYS.Examples.MainForm.GetLength">
+            <summary>
+            Gets cable length from the <c>txtLength</c> TextBox.
+            </summary>
+            <returns>A <c>double</c> representing the cable length specified by the user.</returns>
+        </member>
+        <member name="M:PhotonKinetics.OASYS.Examples.MainForm.GetCableID">
+            <summary>
+            Gets the cable ID from the <c>txtCableID</c> TextBox.
+            </summary>
+            <returns>A string representing the cable ID</returns>
+        </member>
+        <member name="M:PhotonKinetics.OASYS.Examples.MainForm.GetRibbonNumber">
+            <summary>
+            Gets the number of ribbons from the <c>txtRibbons</c> TextBox.
+            </summary>
+            <returns>An integer representing the number of ribbons specified by the user.</returns>
+        </member>
+        <member name="M:PhotonKinetics.OASYS.Examples.MainForm.CloseApplicationSuccess">
+            <summary>
+            Closes the program with ExitCode set to `success` to indicate to
+            OASYS.net that the pre-processor exited normally.
+            </summary>
+        </member>
+        <member name="M:PhotonKinetics.OASYS.Examples.MainForm.CloseApplicationWithError(System.Exception)">
+            <summary>
+            Closes the program and logs the Exception passed in. Sets ExitCode to 1
+            to notify OASYS.net that the post-processor closed with an error.
+            </summary>
+            <param name="ex">The Exception to log.</param>
+        </member>
+        <member name="M:PhotonKinetics.OASYS.Examples.MainForm.CancelApplication(System.Boolean)">
+            <summary>
+            Closes the program with ExitCode set to `cancel` to indicate to
+            OASYS.net that the pre-processor was canceled by the user.
+            </summary>
+            <param name="alreadyClosing">A flag to indicate if the Form is already closing.</param>
+        </member>
+        <member name="M:PhotonKinetics.OASYS.Examples.MainForm.CloseLogFile">
+            <summary>
+            Flushes the Trace output and closes the log file.
+            </summary>
+        </member>
+        <member name="M:PhotonKinetics.OASYS.Examples.MainForm.LogTraceEntry(System.String)">
+            <summary>
+            Logs a message to the log file with call stack information.
+            </summary>
+            <param name="message">The text of the message to log.</param>
+        </member>
+        <member name="M:PhotonKinetics.OASYS.Examples.MainForm.OnIntegerTextBoxKeyPress(System.Object,System.Windows.Forms.KeyPressEventArgs)">
+            <summary>
+            Validates text box entry upon key press when only positive integers are allowed.
+            </summary>
+            <param name="sender">The <c>TextBox</c> handling the event.</param>
+            <param name="e">The <c>KeyPressEventArgs</c> from the KeyPress event.</param>
+        </member>
+        <member name="M:PhotonKinetics.OASYS.Examples.MainForm.OnDoubleTextBoxKeyPress(System.Object,System.Windows.Forms.KeyPressEventArgs)">
+            <summary>
+            Validates text box entry upon key press when only positive real numbers are allowed.
+            </summary>
+            <param name="sender">The <c>TextBox</c> handling the event.</param>
+            <param name="e">The <c>KeyPressEventArgs</c> from the KeyPress event.</param>
+        </member>
+        <member name="M:PhotonKinetics.OASYS.Examples.MainForm.PosIntegerOnly(System.Windows.Forms.KeyPressEventArgs)">
+            <summary>
+            Catches the key selected and only allows positive integer key presses to be
+            accepted ("0,1,2,3,4,5,6,7,8,9" only - no other char)
+            </summary>
+            <param name="e">The <c>KeyPressEventArgs</c> forwarded from the key press event
+            handling method.</param>
+            <remarks>
+            This is not a complete validation, as it allows some special characters.
+            </remarks>
+        </member>
+        <member name="M:PhotonKinetics.OASYS.Examples.MainForm.PosFloatOnly(System.Windows.Forms.KeyPressEventArgs)">
+            <summary>
+            Catches the key selected and only allows positive real value key presses to be accepted
+            </summary>
+            <param name="e">The <c>KeyPressEventArgs</c> forwarded from the key press event
+            handling method.</param>
+            <remarks>
+            This is not a complete validation, as it allows some special characters.
+            </remarks>
+        </member>
+        <member name="T:PhotonKinetics.WinFormStyle.PKColor">
+            <summary>
+            Defines colors for PK WinForms style
+            </summary>
+        </member>
+        <member name="F:PhotonKinetics.WinFormStyle.PKColor.PKDarkGrey">
+            <summary>
+            PK Dark Grey
+            </summary>
+        </member>
+        <member name="F:PhotonKinetics.WinFormStyle.PKColor.PKLightGrey">
+            <summary>
+            PK Light Grey
+            </summary>
+        </member>
+        <member name="F:PhotonKinetics.WinFormStyle.PKColor.PKButtonColor">
+            <summary>
+            PK Button Grey
+            </summary>
+        </member>
+        <member name="F:PhotonKinetics.WinFormStyle.PKColor.PKBlue">
+            <summary>
+            PK Blue
+            </summary>
+        </member>
+        <member name="F:PhotonKinetics.WinFormStyle.PKColor.PKYellow">
+            <summary>
+            PK Yellow
+            </summary>
+        </member>
+        <member name="F:PhotonKinetics.WinFormStyle.PKColor.PKRed">
+            <summary>
+            PK Red
+            </summary>
+        </member>
+        <member name="F:PhotonKinetics.WinFormStyle.PKColor.PKGreen">
+            <summary>
+            PK Green
+            </summary>
+        </member>
+        <member name="F:PhotonKinetics.WinFormStyle.PKColor.PKOrange">
+            <summary>
+            PK Orange
+            </summary>
+        </member>
+        <member name="F:PhotonKinetics.WinFormStyle.PKColor.PKPink">
+            <summary>
+            PK Pink
+            </summary>
+        </member>
+        <member name="F:PhotonKinetics.WinFormStyle.PKColor.PKToBeMeasured">
+            <summary>
+            Alias for PK Button Grey
+            </summary>
+        </member>
+        <member name="F:PhotonKinetics.WinFormStyle.PKColor.Backcolor">
+            <summary>
+            Alias for PK Light Grey
+            </summary>
+        </member>
+        <member name="F:PhotonKinetics.WinFormStyle.PKColor.ButtonColor">
+            <summary>
+            Alias for PK Dark Grey
+            </summary>
+        </member>
+        <member name="F:PhotonKinetics.WinFormStyle.PKColor.FontColor">
+            <summary>
+            Alias for PK Blue
+            </summary>
+        </member>
+        <member name="F:PhotonKinetics.WinFormStyle.PKColor.FormBackColor">
+            <summary>
+            Alias for PK Dark Grey
+            </summary>
+        </member>
+        <member name="F:PhotonKinetics.WinFormStyle.PKColor.FormFrameColor">
+            <summary>
+            Alias for PK Light Grey
+            </summary>
+        </member>
+        <member name="F:PhotonKinetics.WinFormStyle.PKColor.FormFrameFontColor">
+            <summary>
+            Alias for Color.Black
+            </summary>
+        </member>
+        <member name="F:PhotonKinetics.WinFormStyle.PKColor.FormButtonColor">
+            <summary>
+            Alias for PK Blue
+            </summary>
+        </member>
+        <member name="F:PhotonKinetics.WinFormStyle.PKColor.FormButtonFontColor">
+            <summary>
+            Alias for White
+            </summary>
+        </member>
+        <member name="F:PhotonKinetics.WinFormStyle.PKColor.FormFontColor">
+            <summary>
+            Alias for Color.Black
+            </summary>
+        </member>
+    </members>
+</doc>

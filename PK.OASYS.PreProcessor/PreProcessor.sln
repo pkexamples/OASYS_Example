@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29509.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Preprocessor", "Preprocessor.csproj", "{135B4BA9-EAD4-0EA0-1BD4-07B3177D8E02}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PK.OASYS.Data", "..\PK.OASYS.Data\PK.OASYS.Data.csproj", "{B3294225-BB66-437E-A4A5-3B76C6EA6560}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PK.OASYS.Data.Tests", "..\PK.OASYS.Data.Tests\PK.OASYS.Data.Tests.csproj", "{56552CB0-C0BA-45C1-A7E2-C3FBB333EA41}"
+EndProject
+Global
+	GlobalSection(VaultVsipSolution-v1) = preSolution
+		VaultHost = http://bvsql1w8/VaultService
+		VaultRepositoryID = 6
+		VaultRepositoryGUID = dc286847-0747-4167-a7b6-7ca5780ce5df
+		ProjectCount = 3
+		ProjectRelativeDiskPath1 = Preprocessor.csproj
+		ProjectRelativeDiskPath2 = ..\PK.OASYS.Data\PK.OASYS.Data.csproj
+		ProjectRelativeDiskPath3 = ..\PK.OASYS.Data.Tests\PK.OASYS.Data.Tests.csproj
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{135B4BA9-EAD4-0EA0-1BD4-07B3177D8E02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{135B4BA9-EAD4-0EA0-1BD4-07B3177D8E02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{135B4BA9-EAD4-0EA0-1BD4-07B3177D8E02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{135B4BA9-EAD4-0EA0-1BD4-07B3177D8E02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3294225-BB66-437E-A4A5-3B76C6EA6560}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3294225-BB66-437E-A4A5-3B76C6EA6560}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3294225-BB66-437E-A4A5-3B76C6EA6560}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3294225-BB66-437E-A4A5-3B76C6EA6560}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56552CB0-C0BA-45C1-A7E2-C3FBB333EA41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56552CB0-C0BA-45C1-A7E2-C3FBB333EA41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56552CB0-C0BA-45C1-A7E2-C3FBB333EA41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56552CB0-C0BA-45C1-A7E2-C3FBB333EA41}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DB132700-25CF-4CA4-9F86-13DCEAC1975F}
+	EndGlobalSection
+EndGlobal
